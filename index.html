@@ -1,0 +1,3620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xploreon Learning - Free Space Education for India</title>
+    <meta name="description" content="India's premier free space education platform. Learn orbital mechanics, rocket science, satellite technology and more. Get certified!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --space-black: #030014;
+            --space-dark: #0a0a1a;
+            --space-purple: #7c3aed;
+            --space-purple-light: #a78bfa;
+            --space-cyan: #06b6d4;
+            --space-cyan-light: #22d3ee;
+            --space-pink: #ec4899;
+            --space-orange: #f97316;
+            --space-green: #10b981;
+            --space-blue: #3b82f6;
+            --space-red: #ef4444;
+            --space-yellow: #fbbf24;
+            --india-saffron: #FF9933;
+            --india-green: #138808;
+            --india-blue: #000080;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--space-black);
+            color: white;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .font-space { font-family: 'Space Grotesk', sans-serif; }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, white, transparent);
+            animation: shoot 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes shoot {
+            0% { transform: translateX(-100px) translateY(0); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateX(calc(100vw + 100px)) translateY(300px); opacity: 0; }
+        }
+
+        .nebula-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 10% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(249, 115, 22, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(3, 0, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(124, 58, 237, 0.5); }
+            50% { box-shadow: 0 0 50px rgba(6, 182, 212, 0.7); }
+        }
+
+        .logo-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, white, var(--space-cyan-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .logo-text span {
+            font-size: 0.7rem;
+            color: var(--space-purple-light);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--gray-300);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--space-cyan);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--space-purple), var(--space-cyan));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--space-red);
+            border-radius: 50%;
+            animation: livePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            color: white;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--space-purple);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(124, 58, 237, 0.2);
+            border-color: var(--space-cyan);
+        }
+
+        .btn-india {
+            background: linear-gradient(135deg, var(--india-saffron), var(--india-green));
+            color: white;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            padding: 120px 2rem 80px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 24px;
+            background: rgba(124, 58, 237, 0.2);
+            border: 1px solid rgba(124, 58, 237, 0.4);
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-badge .india-flag {
+            font-size: 1.2rem;
+        }
+
+        .hero-badge span {
+            color: var(--space-purple-light);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--space-cyan), var(--space-purple), var(--space-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradientMove 5s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .hero h1 .text-glow {
+            text-shadow: 0 0 40px rgba(6, 182, 212, 0.5), 0 0 80px rgba(124, 58, 237, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: var(--gray-300);
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-subtitle strong {
+            color: var(--india-saffron);
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-buttons .btn {
+            padding: 16px 36px;
+            font-size: 1.1rem;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--space-cyan);
+            box-shadow: 0 10px 40px rgba(6, 182, 212, 0.2);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--space-cyan), var(--space-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .hero-scroll svg {
+            width: 30px;
+            height: 30px;
+            color: var(--gray-500);
+        }
+
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .planet-1 {
+            top: 15%;
+            right: 5%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle at 30% 30%, var(--india-saffron), var(--space-orange), #5a1a00);
+            border-radius: 50%;
+            box-shadow: 
+                inset -20px -20px 40px rgba(0,0,0,0.5),
+                0 0 60px rgba(249, 115, 22, 0.3);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .planet-2 {
+            bottom: 20%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle at 30% 30%, var(--space-cyan-light), var(--space-blue), #1a1a5a);
+            border-radius: 50%;
+            box-shadow: 
+                inset -15px -15px 30px rgba(0,0,0,0.5),
+                0 0 40px rgba(6, 182, 212, 0.3);
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        .satellite {
+            top: 30%;
+            left: 10%;
+            font-size: 3rem;
+            animation: orbit 20s linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-section {
+            position: relative;
+            z-index: 10;
+            padding: 100px 2rem;
+            background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.05), transparent);
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 50px;
+            color: var(--space-cyan);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-title .highlight {
+            background: linear-gradient(135deg, var(--space-cyan), var(--space-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-400);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--space-cyan);
+        }
+
+        .about-content p {
+            color: var(--gray-300);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .about-features {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .about-feature:hover {
+            transform: translateX(10px);
+            border-color: var(--space-cyan);
+        }
+
+        .about-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .about-feature-text h4 {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .about-feature-text p {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.9), rgba(30, 30, 60, 0.9));
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--india-saffron), white, var(--india-green));
+        }
+
+        .about-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .about-card-header .icon {
+            font-size: 3rem;
+        }
+
+        .about-card-header h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+        }
+
+        .about-card-header p {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+        }
+
+        .india-map-visual {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+        }
+
+        .india-map-visual .map-emoji {
+            font-size: 8rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .india-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .india-stat {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(124, 58, 237, 0.15);
+            border-radius: 12px;
+        }
+
+        .india-stat .number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--space-cyan);
+        }
+
+        .india-stat .label {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+        }
+
+        /* ===== MISSION SECTION ===== */
+        .mission-section {
+            position: relative;
+            z-index: 10;
+            padding: 100px 2rem;
+        }
+
+        .mission-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .mission-card {
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.8), rgba(20, 20, 40, 0.8));
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(124, 58, 237, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--space-cyan);
+            box-shadow: 0 20px 60px rgba(6, 182, 212, 0.2);
+        }
+
+        .mission-card:hover::before {
+            opacity: 1;
+        }
+
+        .mission-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .mission-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .mission-card p {
+            color: var(--gray-400);
+            font-size: 0.95rem;
+        }
+
+        /* ===== WHY SPACE EDUCATION ===== */
+        .why-section {
+            position: relative;
+            z-index: 10;
+            padding: 100px 2rem;
+            background: linear-gradient(180deg, transparent, rgba(6, 182, 212, 0.05), transparent);
+        }
+
+        .why-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .why-image {
+            position: relative;
+        }
+
+        .why-image-main {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-image-main::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .why-list {
+            list-style: none;
+        }
+
+        .why-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .why-item:hover {
+            background: rgba(124, 58, 237, 0.2);
+            transform: translateX(10px);
+            border-color: var(--space-cyan);
+        }
+
+        .why-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .why-text h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .why-text p {
+            color: var(--gray-400);
+            font-size: 0.95rem;
+        }
+
+        /* ===== COURSES SECTION ===== */
+        .courses-section {
+            position: relative;
+            z-index: 10;
+            padding: 100px 2rem;
+        }
+
+        .courses-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 50px;
+            color: var(--gray-300);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-color: transparent;
+            color: white;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.9), rgba(20, 20, 40, 0.9));
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--space-cyan);
+            box-shadow: 0 20px 60px rgba(6, 182, 212, 0.2);
+        }
+
+        .course-thumbnail {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .course-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .course-card:hover .course-thumbnail img {
+            transform: scale(1.1);
+        }
+
+        .course-thumbnail::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(transparent, rgba(10, 10, 26, 1));
+        }
+
+        .course-badges {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            right: 1rem;
+            display: flex;
+            justify-content: space-between;
+            z-index: 2;
+        }
+
+        .course-level {
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .course-level.beginner {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--space-green);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .course-level.intermediate {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--space-yellow);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+        }
+
+        .course-level.advanced {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--space-red);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .course-category {
+            padding: 6px 14px;
+            background: rgba(124, 58, 237, 0.8);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s ease;
+        }
+
+        .course-card:hover .course-title {
+            color: var(--space-cyan);
+        }
+
+        .course-description {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .course-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .instructor-avatar {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-radius: 50%;
+        }
+
+        .instructor-name {
+            font-size: 0.85rem;
+            color: var(--gray-300);
+        }
+
+        .course-cta {
+            color: var(--space-cyan);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .free-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--space-green), #059669);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 5;
+        }
+
+        /* ===== CERTIFICATE SECTION ===== */
+        .certificate-section {
+            position: relative;
+            z-index: 10;
+            padding: 100px 2rem;
+            background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.08), transparent);
+        }
+
+        .certificate-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .certificate-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .certificate-info h3 .highlight {
+            color: var(--space-cyan);
+        }
+
+        .certificate-info p {
+            color: var(--gray-300);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .certificate-steps {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .certificate-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid var(--space-cyan);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .step-content p {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .certificate-preview {
+            position: relative;
+        }
+
+        .certificate-card {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 3px solid;
+            border-image: linear-gradient(135deg, var(--india-saffron), white, var(--india-green)) 1;
+            border-radius: 0;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .certificate-card::before {
+            content: '🏆';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4rem;
+        }
+
+        .certificate-card .logo-small {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--space-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .certificate-card h4 {
+            font-size: 0.9rem;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .certificate-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .certificate-card .course-name {
+            color: var(--space-purple-light);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .certificate-card .student-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--space-cyan);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .certificate-seal {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .seal {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* ===== LIVE SESSIONS ===== */
+        .live-section {
+            position: relative;
+            z-index: 10;
+            padding: 100px 2rem;
+        }
+
+        .live-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .live-indicator-large {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 50px;
+        }
+
+        .live-indicator-large .dot {
+            width: 12px;
+            height: 12px;
+            background: var(--space-red);
+            border-radius: 50%;
+            animation: livePulse 2s ease-in-out infinite;
+        }
+
+        .live-indicator-large span {
+            color: var(--space-red);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .live-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .live-card {
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.9), rgba(20, 20, 40, 0.9));
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .live-card.is-live {
+            border-color: var(--space-red);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
+        }
+
+        .live-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .live-thumbnail {
+            position: relative;
+            height: 180px;
+        }
+
+        .live-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .live-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 8px 16px;
+            background: var(--space-red);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .upcoming-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 8px 16px;
+            background: var(--space-purple);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .live-content {
+            padding: 1.5rem;
+        }
+
+        .live-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .live-description {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .live-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        .live-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-cta {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .live-cta:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .live-cta.is-live {
+            background: linear-gradient(135deg, var(--space-red), var(--space-pink));
+        }
+
+        /* ===== CONTACT/EMAIL SECTION ===== */
+        .contact-section {
+            position: relative;
+            z-index: 10;
+            padding: 100px 2rem;
+            background: linear-gradient(180deg, transparent, rgba(6, 182, 212, 0.05), transparent);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            color: var(--gray-300);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-methods {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            border-color: var(--space-cyan);
+            transform: translateX(10px);
+        }
+
+        .contact-method-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .contact-method-text h4 {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-method-text p {
+            color: var(--space-cyan);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .contact-form-wrapper {
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.9), rgba(20, 20, 40, 0.9));
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 24px;
+            padding: 2.5rem;
+        }
+
+        .contact-form h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form > p {
+            color: var(--gray-400);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-300);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--space-cyan);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--gray-600);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: var(--space-dark);
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+        }
+
+        .form-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .form-success {
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--space-green);
+            border-radius: 12px;
+            color: var(--space-green);
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .form-success.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== FAQ SECTION ===== */
+        .faq-section {
+            position: relative;
+            z-index: 10;
+            padding: 100px 2rem;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--space-cyan);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .faq-question:hover {
+            color: var(--space-cyan);
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--gray-400);
+            line-height: 1.8;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            position: relative;
+            z-index: 10;
+            padding: 100px 2rem;
+            background: linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.05), transparent);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.9), rgba(20, 20, 40, 0.9));
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--space-cyan);
+        }
+
+        .testimonial-quote {
+            font-size: 3rem;
+            color: var(--space-purple);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            color: var(--gray-300);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .testimonial-info h5 {
+            font-weight: 600;
+        }
+
+        .testimonial-info p {
+            color: var(--gray-500);
+            font-size: 0.85rem;
+        }
+
+        /* ===== PARTNERS ===== */
+        .partners-section {
+            position: relative;
+            z-index: 10;
+            padding: 80px 2rem;
+        }
+
+        .partners-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            opacity: 0.6;
+        }
+
+        .partner-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gray-500);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            position: relative;
+            z-index: 10;
+            padding: 80px 2rem 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand p {
+            color: var(--gray-400);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(124, 58, 237, 0.2);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--gray-300);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-color: transparent;
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--space-cyan);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--space-cyan);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(124, 58, 237, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+        }
+
+        .footer-india {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gray-400);
+        }
+
+        /* ===== VIDEO PLAYER MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--space-dark);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 24px;
+            overflow: hidden;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .modal-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            background: rgba(124, 58, 237, 0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--space-red);
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .video-player-container {
+            padding: 1.5rem;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            background: black;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-info {
+            padding: 1.5rem 0;
+        }
+
+        .video-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-info p {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+        }
+
+        .lessons-sidebar {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 1px solid rgba(124, 58, 237, 0.2);
+            overflow-y: auto;
+        }
+
+        .lessons-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .lessons-header h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(124, 58, 237, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--space-purple), var(--space-cyan));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .lessons-list {
+            padding: 1rem;
+        }
+
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .lesson-item:hover {
+            background: rgba(124, 58, 237, 0.2);
+        }
+
+        .lesson-item.active {
+            background: rgba(6, 182, 212, 0.2);
+            border: 1px solid var(--space-cyan);
+        }
+
+        .lesson-item.completed .lesson-number {
+            background: var(--space-green);
+        }
+
+        .lesson-number {
+            width: 35px;
+            height: 35px;
+            background: rgba(124, 58, 237, 0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-info h5 {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .lesson-info span {
+            color: var(--gray-500);
+            font-size: 0.8rem;
+        }
+
+        /* ===== ADMIN PANEL ===== */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 3000;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+        }
+
+        .admin-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-tab {
+            padding: 12px 24px;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 10px;
+            color: var(--gray-300);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-tab:hover,
+        .admin-tab.active {
+            background: linear-gradient(135deg, var(--space-purple), var(--space-cyan));
+            border-color: transparent;
+            color: white;
+        }
+
+        .admin-content {
+            background: rgba(10, 10, 26, 0.8);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .admin-form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .admin-form-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .admin-form-section h4 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1rem;
+            color: var(--space-cyan);
+        }
+
+        .admin-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .admin-form-grid .full-width {
+            grid-column: span 2;
+        }
+
+        .video-list {
+            margin-top: 1rem;
+        }
+
+        .video-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-list-item span {
+            font-size: 0.9rem;
+        }
+
+        .video-remove {
+            padding: 6px 12px;
+            background: rgba(239, 68, 68, 0.2);
+            border: none;
+            border-radius: 6px;
+            color: var(--space-red);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-remove:hover {
+            background: var(--space-red);
+            color: white;
+        }
+
+        .add-video-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .add-video-form input {
+            flex: 1;
+        }
+
+        .add-video-btn {
+            padding: 14px 24px;
+            background: var(--space-cyan);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .admin-item-list {
+            margin-top: 2rem;
+        }
+
+        .admin-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .admin-item-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .admin-item-thumb {
+            width: 80px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .admin-item-details h5 {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .admin-item-details p {
+            color: var(--gray-500);
+            font-size: 0.85rem;
+        }
+
+        .admin-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .admin-edit-btn,
+        .admin-delete-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-edit-btn {
+            background: rgba(6, 182, 212, 0.2);
+            color: var(--space-cyan);
+        }
+
+        .admin-delete-btn {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--space-red);
+        }
+
+        .admin-edit-btn:hover {
+            background: var(--space-cyan);
+            color: white;
+        }
+
+        .admin-delete-btn:hover {
+            background: var(--space-red);
+            color: white;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .about-grid,
+            .certificate-content,
+            .why-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .courses-grid,
+            .live-grid,
+            .testimonials-grid,
+            .mission-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+
+            .lessons-sidebar {
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .courses-grid,
+            .live-grid,
+            .testimonials-grid,
+            .mission-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .admin-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-form-grid .full-width {
+                grid-column: span 1;
+            }
+
+            .india-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .partners-logos {
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="bg-stars" id="stars"></div>
+    <div class="nebula-bg"></div>
+
+    <!-- Main App Container -->
+    <div id="root"></div>
+
+    <!-- React & Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // ===== DATA =====
+        const initialCourses = [
+            {
+                id: 1,
+                title: "Introduction to Orbital Mechanics",
+                description: "Master the fundamentals of how objects move in space. From Kepler's laws to orbital maneuvers - essential knowledge for any space enthusiast.",
+                thumbnail: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800",
+                instructor: "Dr. Priya Sharma",
+                duration: "8 hours",
+                lessons: 12,
+                category: "Fundamentals",
+                level: "Beginner",
+                videos: [
+                    { id: 1, title: "What is Orbital Mechanics?", duration: "15:30", videoUrl: "https://www.youtube.com/embed/Am7EwmxBAW8" },
+                    { id: 2, title: "Newton's Laws in Space", duration: "22:45", videoUrl: "https://www.youtube.com/embed/0rJQi6oaZf0" },
+                    { id: 3, title: "Kepler's Laws Explained", duration: "28:15", videoUrl: "https://www.youtube.com/embed/qDHnWptz5Jo" },
+                    { id: 4, title: "Understanding Orbits", duration: "19:20", videoUrl: "https://www.youtube.com/embed/pR5VJo5ifdE" },
+                ]
+            },
+            {
+                id: 2,
+                title: "Satellite Communication Systems",
+                description: "Deep dive into how satellites communicate with Earth. Learn about radio frequencies, antenna design, and signal processing.",
+                thumbnail: "https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=800",
+                instructor: "Prof. Rajesh Kumar",
+                duration: "10 hours",
+                lessons: 15,
+                category: "Communications",
+                level: "Intermediate",
+                videos: [
+                    { id: 1, title: "Radio Frequency Basics", duration: "20:00", videoUrl: "https://www.youtube.com/embed/FWCN_uI5ygY" },
+                    { id: 2, title: "Antenna Design", duration: "25:30", videoUrl: "https://www.youtube.com/embed/ZaXm6wau-jc" },
+                    { id: 3, title: "Signal Processing", duration: "30:15", videoUrl: "https://www.youtube.com/embed/spUNpyF58BY" },
+                ]
+            },
+            {
+                id: 3,
+                title: "Rocket Propulsion Engineering",
+                description: "Understand the science behind rocket engines. From chemical propulsion to ion drives - learn how we escape Earth's gravity.",
+                thumbnail: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=800",
+                instructor: "Dr. Anil Verma",
+                duration: "12 hours",
+                lessons: 18,
+                category: "Engineering",
+                level: "Advanced",
+                videos: [
+                    { id: 1, title: "Propulsion Fundamentals", duration: "18:45", videoUrl: "https://www.youtube.com/embed/a8c2EehmZJU" },
+                    { id: 2, title: "Liquid vs Solid Fuels", duration: "24:30", videoUrl: "https://www.youtube.com/embed/LBKzOF55cpw" },
+                    { id: 3, title: "Ion Propulsion", duration: "32:00", videoUrl: "https://www.youtube.com/embed/fH5sOqy0X2Y" },
+                ]
+            },
+            {
+                id: 4,
+                title: "ISRO Mission History",
+                description: "Explore India's remarkable space journey. From Aryabhata to Chandrayaan and Mangalyaan - celebrating Indian space achievements.",
+                thumbnail: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800",
+                instructor: "Dr. Meera Nair",
+                duration: "6 hours",
+                lessons: 10,
+                category: "History",
+                level: "Beginner",
+                videos: [
+                    { id: 1, title: "Birth of ISRO", duration: "22:00", videoUrl: "https://www.youtube.com/embed/WZyRbnpGyzQ" },
+                    { id: 2, title: "Chandrayaan Missions", duration: "28:30", videoUrl: "https://www.youtube.com/embed/CbpLRq-VZ2w" },
+                ]
+            },
+            {
+                id: 5,
+                title: "Space Weather & Radiation",
+                description: "Learn how solar activity affects spacecraft and astronauts. Essential knowledge for designing missions in harsh space environments.",
+                thumbnail: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800",
+                instructor: "Dr. Sunita Patel",
+                duration: "5 hours",
+                lessons: 8,
+                category: "Science",
+                level: "Intermediate",
+                videos: [
+                    { id: 1, title: "Solar Wind", duration: "16:30", videoUrl: "https://www.youtube.com/embed/bg_gD2-ujCk" },
+                    { id: 2, title: "Radiation Protection", duration: "21:00", videoUrl: "https://www.youtube.com/embed/v3rhQc666Sg" },
+                ]
+            },
+            {
+                id: 6,
+                title: "Spacecraft Design Fundamentals",
+                description: "From concept to launch - learn the complete spacecraft design process. Systems engineering, thermal control, and more.",
+                thumbnail: "https://images.unsplash.com/photo-1457364559154-aa2644600ebb?w=800",
+                instructor: "Prof. Vikram Singh",
+                duration: "15 hours",
+                lessons: 20,
+                category: "Engineering",
+                level: "Advanced",
+                videos: [
+                    { id: 1, title: "Systems Engineering", duration: "25:00", videoUrl: "https://www.youtube.com/embed/wXeqOK8E_Q8" },
+                    { id: 2, title: "Thermal Control", duration: "28:30", videoUrl: "https://www.youtube.com/embed/Rl4sHPGX9wA" },
+                ]
+            }
+        ];
+
+        const initialSessions = [
+            {
+                id: 1,
+                title: "Live Q&A: Chandrayaan-4 Mission",
+                instructor: "Dr. Priya Sharma",
+                date: "2025-01-20",
+                time: "19:00 IST",
+                duration: "2 hours",
+                thumbnail: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800",
+                description: "Interactive session discussing India's upcoming lunar mission.",
+                isLive: false
+            },
+            {
+                id: 2,
+                title: "Rocket Science Masterclass",
+                instructor: "Dr. Anil Verma",
+                date: "2025-01-22",
+                time: "18:00 IST",
+                duration: "3 hours",
+                thumbnail: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=800",
+                description: "Deep dive into rocket propulsion with live demonstrations.",
+                isLive: true
+            },
+            {
+                id: 3,
+                title: "Career in Space Technology",
+                instructor: "Prof. Rajesh Kumar",
+                date: "2025-01-25",
+                time: "17:00 IST",
+                duration: "1.5 hours",
+                thumbnail: "https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=800",
+                description: "Guidance for students aspiring to join ISRO and space industry.",
+                isLive: false
+            }
+        ];
+
+        const faqData = [
+            {
+                question: "Is Xploreon Learning really free?",
+                answer: "Yes! All our courses are completely free. Our mission is to make space education accessible to every Indian student, regardless of their economic background. We believe knowledge should have no barriers."
+            },
+            {
+                question: "How do I get a certificate?",
+                answer: "After completing all lessons in a course, email us at certificates@xploreon.in with your full name, course completed, and we'll schedule your online examination. Upon passing, you'll receive an official Xploreon certificate."
+            },
+            {
+                question: "Are the certificates recognized?",
+                answer: "Our certificates are recognized by several educational institutions and can be added to your resume and LinkedIn profile. We're working with ISRO and universities for official partnerships."
+            },
+            {
+                question: "Can I access courses offline?",
+                answer: "Currently, courses are available online only. However, we're developing an offline mode for areas with limited internet connectivity - coming soon!"
+            },
+            {
+                question: "How can I contribute or volunteer?",
+                answer: "We welcome educators, space professionals, and enthusiasts to contribute. Email us at volunteer@xploreon.in to join our mission of spreading space education across India."
+            },
+            {
+                question: "What age group are these courses for?",
+                answer: "Our courses cater to students from Class 8 onwards to working professionals. Beginner courses are designed for younger students, while Advanced courses suit college students and professionals."
+            }
+        ];
+
+        const testimonials = [
+            {
+                text: "Xploreon transformed my understanding of space science. As a student from a small town in Bihar, I never had access to such quality content. Now I'm preparing for IIST!",
+                name: "Rahul Kumar",
+                role: "Class 12 Student, Patna",
+                emoji: "👨‍🎓"
+            },
+            {
+                text: "The orbital mechanics course is as good as any IIT lecture. And it's free! This initiative is exactly what India needs to produce the next generation of space scientists.",
+                name: "Dr. Ananya Reddy",
+                role: "Physics Professor, Hyderabad",
+                emoji: "👩‍🏫"
+            },
+            {
+                text: "I completed three courses and received my certificates. The quality of education and the examination process is very professional. Highly recommended!",
+                name: "Vikash Singh",
+                role: "Engineering Student, Delhi",
+                emoji: "👨‍💻"
+            }
+        ];
+
+        // ===== STAR BACKGROUND GENERATOR =====
+        const generateStars = () => {
+            const container = document.getElementById('stars');
+            if (!container) return;
+            
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.setProperty('--delay', Math.random() * 3 + 's');
+                container.appendChild(star);
+            }
+
+            // Add shooting stars
+            for (let i = 0; i < 3; i++) {
+                const shooting = document.createElement('div');
+                shooting.className = 'shooting-star';
+                shooting.style.top = Math.random() * 50 + '%';
+                shooting.style.animationDelay = (i * 5 + Math.random() * 5) + 's';
+                container.appendChild(shooting);
+            }
+        };
+
+        // ===== MAIN APP COMPONENT =====
+        const App = () => {
+            const [courses, setCourses] = useState(initialCourses);
+            const [sessions, setSessions] = useState(initialSessions);
+            const [currentPage, setCurrentPage] = useState('home');
+            const [selectedCourse, setSelectedCourse] = useState(null);
+            const [activeVideo, setActiveVideo] = useState(null);
+            const [completedVideos, setCompletedVideos] = useState({});
+            const [showAdmin, setShowAdmin] = useState(false);
+            const [isScrolled, setIsScrolled] = useState(false);
+            const [filter, setFilter] = useState('All');
+            const [emailSent, setEmailSent] = useState(false);
+
+            useEffect(() => {
+                generateStars();
+                const handleScroll = () => setIsScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const handleCourseClick = (course) => {
+                setSelectedCourse(course);
+                setActiveVideo(course.videos[0]);
+            };
+
+            const closeVideoPlayer = () => {
+                setSelectedCourse(null);
+                setActiveVideo(null);
+            };
+
+            const toggleVideoComplete = (courseId, videoId) => {
+                setCompletedVideos(prev => {
+                    const key = `${courseId}-${videoId}`;
+                    return { ...prev, [key]: !prev[key] };
+                });
+            };
+
+            const getProgress = (course) => {
+                const completed = course.videos.filter(v => 
+                    completedVideos[`${course.id}-${v.id}`]
+                ).length;
+                return (completed / course.videos.length) * 100;
+            };
+
+            const handleEmailSubmit = (e) => {
+                e.preventDefault();
+                setEmailSent(true);
+                setTimeout(() => setEmailSent(false), 5000);
+            };
+
+            const scrollToSection = (id) => {
+                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            const filteredCourses = filter === 'All' 
+                ? courses 
+                : courses.filter(c => c.category === filter);
+
+            const categories = ['All', ...new Set(courses.map(c => c.category))];
+
+            return (
+                <>
+                    {/* Navigation */}
+                    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+                        <div className="nav-container">
+                            <a href="#" className="logo" onClick={() => scrollToSection('hero')}>
+                                <div className="logo-icon">🚀</div>
+                                <div className="logo-text">
+                                    <h1>XPLOREON</h1>
+                                    <span>Learning</span>
+                                </div>
+                            </a>
+                            
+                            <ul className="nav-links">
+                                <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>About</a></li>
+                                <li><a href="#courses" onClick={(e) => { e.preventDefault(); scrollToSection('courses'); }}>Courses</a></li>
+                                <li><a href="#certificate" onClick={(e) => { e.preventDefault(); scrollToSection('certificate'); }}>Certificate</a></li>
+                                <li>
+                                    <a href="#live" onClick={(e) => { e.preventDefault(); scrollToSection('live'); }} className="live-indicator">
+                                        <span className="live-dot"></span>
+                                        Live
+                                    </a>
+                                </li>
+                                <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>Contact</a></li>
+                                <li>
+                                    <button className="btn btn-primary" onClick={() => setShowAdmin(true)}>
+                                        Admin
+                                    </button>
+                                </li>
+                            </ul>
+
+                            <button className="mobile-menu-btn" onClick={() => setShowAdmin(true)}>☰</button>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <section className="hero" id="hero">
+                        <div className="floating-element planet-1"></div>
+                        <div className="floating-element planet-2"></div>
+                        <div className="floating-element satellite">🛰️</div>
+
+                        <div className="hero-content">
+                            <div className="hero-badge">
+                                <span className="india-flag">🇮🇳</span>
+                                <span>Made in India, For India</span>
+                            </div>
+                            
+                            <h1>
+                                <span className="gradient-text">FREE SPACE</span>
+                                <br />
+                                <span className="text-glow">EDUCATION</span>
+                                <br />
+                                <span style={{fontSize: '0.6em', color: 'var(--gray-300)'}}>For Every Indian Student</span>
+                            </h1>
+
+                            <p className="hero-subtitle">
+                                Learn orbital mechanics, rocket science, satellite technology, and more from 
+                                <strong> India's top space educators</strong>. No fees. No barriers. Just knowledge.
+                            </p>
+
+                            <div className="hero-buttons">
+                                <button className="btn btn-primary" onClick={() => scrollToSection('courses')}>
+                                    🎓 Start Learning Free
+                                </button>
+                                <button className="btn btn-secondary" onClick={() => scrollToSection('certificate')}>
+                                    📜 Get Certified
+                                </button>
+                            </div>
+
+                            <div className="hero-stats">
+                                <div className="stat-item">
+                                    <div className="stat-number">50+</div>
+                                    <div className="stat-label">Video Lessons</div>
+                                </div>
+                                <div className="stat-item">
+                                    <div className="stat-number">10K+</div>
+                                    <div className="stat-label">Students</div>
+                                </div>
+                                <div className="stat-item">
+                                    <div className="stat-number">100%</div>
+                                    <div className="stat-label">Free Forever</div>
+                                </div>
+                                <div className="stat-item">
+                                    <div className="stat-number">28</div>
+                                    <div className="stat-label">States Reached</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="hero-scroll">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M12 5v14M19 12l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </section>
+
+                    {/* About Section */}
+                    <section className="about-section" id="about">
+                        <div className="section-container">
+                            <div className="section-header">
+                                <span className="section-badge">Our Mission</span>
+                                <h2 className="section-title">
+                                    Democratizing <span className="highlight">Space Education</span>
+                                </h2>
+                                <p className="section-subtitle">
+                                    We believe every Indian student deserves access to world-class space education, 
+                                    regardless of their location or economic background.
+                                </p>
+                            </div>
+
+                            <div className="about-grid">
+                                <div className="about-content">
+                                    <h3>Why We Exist</h3>
+                                    <p>
+                                        India has achieved remarkable feats in space - from Chandrayaan to Mangalyaan. 
+                                        Yet, quality space education remains inaccessible to millions of students in 
+                                        tier-2, tier-3 cities and rural areas.
+                                    </p>
+                                    <p>
+                                        Xploreon Learning bridges this gap. We bring ISRO-level knowledge to your 
+                                        fingertips - completely free. Our courses are designed by IIT alumni and 
+                                        space industry professionals.
+                                    </p>
+
+                                    <div className="about-features">
+                                        <div className="about-feature">
+                                            <div className="about-feature-icon">🎯</div>
+                                            <div className="about-feature-text">
+                                                <h4>Curriculum Aligned with ISRO</h4>
+                                                <p>Content designed to prepare students for IIST and space careers</p>
+                                            </div>
+                                        </div>
+                                        <div className="about-feature">
+                                            <div className="about-feature-icon">🗣️</div>
+                                            <div className="about-feature-text">
+                                                <h4>Hindi & English Content</h4>
+                                                <p>Breaking language barriers in science education</p>
+                                            </div>
+                                        </div>
+                                        <div className="about-feature">
+                                            <div className="about-feature-icon">📱</div>
+                                            <div className="about-feature-text">
+                                                <h4>Mobile-First Design</h4>
+                                                <p>Learn on any device, even with slow internet</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="about-visual">
+                                    <div className="about-card">
+                                        <div className="about-card-header">
+                                            <span className="icon">🇮🇳</span>
+                                            <div>
+                                                <h4>Reaching Every Corner of India</h4>
+                                                <p>From Kashmir to Kanyakumari</p>
+                                            </div>
+                                        </div>
+                                        <div className="india-map-visual">
+                                            <span className="map-emoji">🗺️</span>
+                                            <p style={{color: 'var(--gray-400)'}}>Students from all 28 states learning with us</p>
+                                        </div>
+                                        <div className="india-stats">
+                                            <div className="india-stat">
+                                                <div className="number">5000+</div>
+                                                <div className="label">Rural Students</div>
+                                            </div>
+                                            <div className="india-stat">
+                                                <div className="number">100+</div>
+                                                <div className="label">Schools Partner</div>
+                                            </div>
+                                            <div className="india-stat">
+                                                <div className="number">15+</div>
+                                                <div className="label">State Languages</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Mission Cards */}
+                    <section className="mission-section">
+                        <div className="section-container">
+                            <div className="mission-cards">
+                                <div className="mission-card">
+                                    <div className="mission-icon">🎓</div>
+                                    <h3>Free Education</h3>
+                                    <p>Quality space education should never be behind a paywall. All our courses are 100% free, forever.</p>
+                                </div>
+                                <div className="mission-card">
+                                    <div className="mission-icon">🏆</div>
+                                    <h3>Recognized Certificates</h3>
+                                    <p>Complete courses and earn certificates that add value to your academic and professional profile.</p>
+                                </div>
+                                <div className="mission-card">
+                                    <div className="mission-icon">🚀</div>
+                                    <h3>Career Guidance</h3>
+                                    <p>Get mentorship and guidance to pursue careers at ISRO, space startups, and research institutions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Why Space Education */}
+                    <section className="why-section">
+                        <div className="section-container">
+                            <div className="section-header">
+                                <span className="section-badge">Why It Matters</span>
+                                <h2 className="section-title">
+                                    Why <span className="highlight">Space Education</span>?
+                                </h2>
+                            </div>
+
+                            <div className="why-content">
+                                <div className="why-image">
+                                    <div className="why-image-main">🌍</div>
+                                </div>
+
+                                <ul className="why-list">
+                                    <li className="why-item">
+                                        <span className="why-number">01</span>
+                                        <div className="why-text">
+                                            <h4>India's Space Economy is Booming</h4>
+                                            <p>The Indian space industry is projected to reach $13 billion by 2025. There's huge demand for trained professionals.</p>
+                                        </div>
+                                    </li>
+                                    <li className="why-item">
+                                        <span className="why-number">02</span>
+                                        <div className="why-text">
+                                            <h4>STEM Skills for the Future</h4>
+                                            <p>Space education develops critical thinking, problem-solving, and technical skills essential for any career.</p>
+                                        </div>
+                                    </li>
+                                    <li className="why-item">
+                                        <span className="why-number">03</span>
+                                        <div className="why-text">
+                                            <h4>Inspire the Next Generation</h4>
+                                            <p>From Kalpana Chawla to ISRO scientists - space dreams inspire millions. Let's nurture that curiosity.</p>
+                                        </div>
+                                    </li>
+                                    <li className="why-item">
+                                        <span className="why-number">04</span>
+                                        <div className="why-text">
+                                            <h4>Nation Building</h4>
+                                            <p>A space-literate population contributes to India's technological sovereignty and global standing.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Courses Section */}
+                    <section className="courses-section" id="courses">
+                        <div className="section-container">
+                            <div className="section-header">
+                                <span className="section-badge">Learn</span>
+                                <h2 className="section-title">
+                                    Explore Our <span className="highlight">Courses</span>
+                                </h2>
+                                <p className="section-subtitle">
+                                    From beginner to advanced - structured learning paths designed by experts
+                                </p>
+                            </div>
+
+                            <div className="courses-filter">
+                                {categories.map(cat => (
+                                    <button 
+                                        key={cat}
+                                        className={`filter-btn ${filter === cat ? 'active' : ''}`}
+                                        onClick={() => setFilter(cat)}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="courses-grid">
+                                {filteredCourses.map(course => (
+                                    <div 
+                                        key={course.id} 
+                                        className="course-card"
+                                        onClick={() => handleCourseClick(course)}
+                                    >
+                                        <div className="course-thumbnail">
+                                            <img src={course.thumbnail} alt={course.title} />
+                                            <div className="course-badges">
+                                                <span className={`course-level ${course.level.toLowerCase()}`}>
+                                                    {course.level}
+                                                </span>
+                                                <span className="course-category">{course.category}</span>
+                                            </div>
+                                            <span className="free-badge">FREE</span>
+                                        </div>
+                                        <div className="course-content">
+                                            <h3 className="course-title">{course.title}</h3>
+                                            <p className="course-description">{course.description}</p>
+                                            <div className="course-meta">
+                                                <span>⏱️ {course.duration}</span>
+                                                <span>📚 {course.lessons} lessons</span>
+                                            </div>
+                                            <div className="course-footer">
+                                                <div className="course-instructor">
+                                                    <div className="instructor-avatar"></div>
+                                                    <span className="instructor-name">{course.instructor}</span>
+                                                </div>
+                                                <span className="course-cta">Start →</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Certificate Section */}
+                    <section className="certificate-section" id="certificate">
+                        <div className="section-container">
+                            <div className="section-header">
+                                <span className="section-badge">Get Certified</span>
+                                <h2 className="section-title">
+                                    Earn Your <span className="highlight">Certificate</span>
+                                </h2>
+                                <p className="section-subtitle">
+                                    Complete courses and prove your knowledge with official Xploreon certificates
+                                </p>
+                            </div>
+
+                            <div className="certificate-content">
+                                <div className="certificate-info">
+                                    <h3>How to Get <span className="highlight">Certified</span></h3>
+                                    <p>
+                                        We believe in validating your learning. After completing all lessons in a course, 
+                                        you're eligible to take our assessment and earn an official certificate.
+                                    </p>
+
+                                    <ul className="certificate-steps">
+                                        <li className="certificate-step">
+                                            <span className="step-number">1</span>
+                                            <div className="step-content">
+                                                <h4>Complete All Lessons</h4>
+                                                <p>Watch all video lectures and understand the concepts</p>
+                                            </div>
+                                        </li>
+                                        <li className="certificate-step">
+                                            <span className="step-number">2</span>
+                                            <div className="step-content">
+                                                <h4>Email Us</h4>
+                                                <p>Send an email to certificates@xploreon.in with your name and completed course</p>
+                                            </div>
+                                        </li>
+                                        <li className="certificate-step">
+                                            <span className="step-number">3</span>
+                                            <div className="step-content">
+                                                <h4>Take the Assessment</h4>
+                                                <p>We'll schedule an online exam to test your understanding</p>
+                                            </div>
+                                        </li>
+                                        <li className="certificate-step">
+                                            <span className="step-number">4</span>
+                                            <div className="step-content">
+                                                <h4>Receive Your Certificate</h4>
+                                                <p>Pass the exam and get your official Xploreon certificate!</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                    <button className="btn btn-primary" onClick={() => scrollToSection('contact')}>
+                                        📧 Request Certificate
+                                    </button>
+                                </div>
+
+                                <div className="certificate-preview">
+                                    <div className="certificate-card">
+                                        <div className="logo-small">XPLOREON LEARNING</div>
+                                        <h4>Certificate of Completion</h4>
+                                        <h3>This is to certify that</h3>
+                                        <div className="student-name">Your Name Here</div>
+                                        <p className="course-name">has successfully completed<br/><strong>Introduction to Orbital Mechanics</strong></p>
+                                        <div className="certificate-seal">
+                                            <div className="seal">🏆</div>
+                                            <div className="seal">✓</div>
+                                            <div className="seal">🚀</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Live Sessions */}
+                    <section className="live-section" id="live">
+                        <div className="section-container">
+                            <div className="section-header">
+                                <div className="live-header">
+                                    <div className="live-indicator-large">
+                                        <span className="dot"></span>
+                                        <span>Live Sessions</span>
+                                    </div>
+                                </div>
+                                <h2 className="section-title">
+                                    Join <span className="highlight">Live Classes</span>
+                                </h2>
+                                <p className="section-subtitle">
+                                    Interactive sessions with experts. Ask questions, participate in discussions.
+                                </p>
+                            </div>
+
+                            <div className="live-grid">
+                                {sessions.map(session => (
+                                    <div key={session.id} className={`live-card ${session.isLive ? 'is-live' : ''}`}>
+                                        <div className="live-thumbnail">
+                                            <img src={session.thumbnail} alt={session.title} />
+                                            {session.isLive ? (
+                                                <div className="live-badge">
+                                                    <span className="dot"></span> LIVE NOW
+                                                </div>
+                                            ) : (
+                                                <div className="upcoming-badge">UPCOMING</div>
+                                            )}
+                                        </div>
+                                        <div className="live-content">
+                                            <h3 className="live-title">{session.title}</h3>
+                                            <p className="live-description">{session.description}</p>
+                                            <div className="live-meta">
+                                                <span>📅 {session.date}</span>
+                                                <span>⏰ {session.time}</span>
+                                                <span>⏱️ {session.duration}</span>
+                                            </div>
+                                            <p style={{fontSize: '0.85rem', color: 'var(--gray-500)', marginBottom: '1rem'}}>
+                                                By {session.instructor}
+                                            </p>
+                                            <button className={`live-cta ${session.isLive ? 'is-live' : ''}`}>
+                                                {session.isLive ? '🔴 Join Now' : '🔔 Set Reminder'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Testimonials */}
+                    <section className="testimonials-section">
+                        <div className="section-container">
+                            <div className="section-header">
+                                <span className="section-badge">Testimonials</span>
+                                <h2 className="section-title">
+                                    What Our <span className="highlight">Students Say</span>
+                                </h2>
+                            </div>
+
+                            <div className="testimonials-grid">
+                                {testimonials.map((t, i) => (
+                                    <div key={i} className="testimonial-card">
+                                        <div className="testimonial-quote">"</div>
+                                        <p className="testimonial-text">{t.text}</p>
+                                        <div className="testimonial-author">
+                                            <div className="testimonial-avatar">{t.emoji}</div>
+                                            <div className="testimonial-info">
+                                                <h5>{t.name}</h5>
+                                                <p>{t.role}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* FAQ Section */}
+                    <section className="faq-section" id="faq">
+                        <div className="section-container">
+                            <div className="section-header">
+                                <span className="section-badge">FAQ</span>
+                                <h2 className="section-title">
+                                    Frequently Asked <span className="highlight">Questions</span>
+                                </h2>
+                            </div>
+
+                            <div className="faq-container">
+                                {faqData.map((faq, i) => (
+                                    <FAQItem key={i} question={faq.question} answer={faq.answer} />
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact Section */}
+                    <section className="contact-section" id="contact">
+                        <div className="section-container">
+                            <div className="section-header">
+                                <span className="section-badge">Get In Touch</span>
+                                <h2 className="section-title">
+                                    Contact <span className="highlight">Us</span>
+                                </h2>
+                                <p className="section-subtitle">
+                                    Have questions? Want to request a certificate? We're here to help!
+                                </p>
+                            </div>
+
+                            <div className="contact-grid">
+                                <div className="contact-info">
+                                    <h3>Let's Connect</h3>
+                                    <p>
+                                        Whether you want to request a certificate, provide feedback, or collaborate 
+                                        with us - we'd love to hear from you!
+                                    </p>
+
+                                    <div className="contact-methods">
+                                        <div className="contact-method">
+                                            <div className="contact-method-icon">📧</div>
+                                            <div className="contact-method-text">
+                                                <h4>Certificate Requests</h4>
+                                                <p>certificates@xploreon.in</p>
+                                            </div>
+                                        </div>
+                                        <div className="contact-method">
+                                            <div className="contact-method-icon">💬</div>
+                                            <div className="contact-method-text">
+                                                <h4>General Inquiries</h4>
+                                                <p>hello@xploreon.in</p>
+                                            </div>
+                                        </div>
+                                        <div className="contact-method">
+                                            <div className="contact-method-icon">🤝</div>
+                                            <div className="contact-method-text">
+                                                <h4>Partnerships</h4>
+                                                <p>partners@xploreon.in</p>
+                                            </div>
+                                        </div>
+                                        <div className="contact-method">
+                                            <div className="contact-method-icon">🎓</div>
+                                            <div className="contact-method-text">
+                                                <h4>Volunteer / Teach</h4>
+                                                <p>volunteer@xploreon.in</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="contact-form-wrapper">
+                                    <form className="contact-form" onSubmit={handleEmailSubmit}>
+                                        <h4>Send us a Message</h4>
+                                        <p>We typically respond within 24 hours</p>
+
+                                        <div className="form-group">
+                                            <label>Full Name *</label>
+                                            <input type="text" placeholder="Enter your full name" required />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Email Address *</label>
+                                            <input type="email" placeholder="your.email@example.com" required />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Subject</label>
+                                            <select>
+                                                <option value="">Select a topic</option>
+                                                <option value="certificate">Certificate Request</option>
+                                                <option value="feedback">Course Feedback</option>
+                                                <option value="partnership">Partnership Inquiry</option>
+                                                <option value="volunteer">Volunteer / Contribute</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>Message *</label>
+                                            <textarea placeholder="Tell us how we can help you..." required></textarea>
+                                        </div>
+
+                                        <button type="submit" className="form-submit">
+                                            🚀 Send Message
+                                        </button>
+
+                                        <div className={`form-success ${emailSent ? 'show' : ''}`}>
+                                            ✅ Message sent successfully! We'll get back to you soon.
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Partners */}
+                    <section className="partners-section">
+                        <div className="section-container">
+                            <div className="section-header">
+                                <p className="section-subtitle" style={{marginBottom: '2rem'}}>Inspired by & Working towards collaborations with</p>
+                            </div>
+                            <div className="partners-logos">
+                                <div className="partner-logo">🛰️ ISRO</div>
+                                <div className="partner-logo">🎓 IIT</div>
+                                <div className="partner-logo">🏫 IIST</div>
+                                <div className="partner-logo">🔬 DRDO</div>
+                                <div className="partner-logo">🌟 HAL</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="footer">
+                        <div className="footer-grid">
+                            <div className="footer-brand">
+                                <div className="logo">
+                                    <div className="logo-icon">🚀</div>
+                                    <div className="logo-text">
+                                        <h1>XPLOREON</h1>
+                                        <span>Learning</span>
+                                    </div>
+                                </div>
+                                <p>
+                                    India's free space education platform. Empowering students 
+                                    from all backgrounds to reach for the stars.
+                                </p>
+                                <div className="footer-social">
+                                    <a href="#" className="social-link">📘</a>
+                                    <a href="#" className="social-link">🐦</a>
+                                    <a href="#" className="social-link">📸</a>
+                                    <a href="#" className="social-link">💼</a>
+                                    <a href="#" className="social-link">📺</a>
+                                </div>
+                            </div>
+
+                            <div className="footer-links">
+                                <h4>Courses</h4>
+                                <ul>
+                                    <li><a href="#">Orbital Mechanics</a></li>
+                                    <li><a href="#">Rocket Propulsion</a></li>
+                                    <li><a href="#">Satellite Systems</a></li>
+                                    <li><a href="#">ISRO History</a></li>
+                                    <li><a href="#">Space Weather</a></li>
+                                </ul>
+                            </div>
+
+                            <div className="footer-links">
+                                <h4>Resources</h4>
+                                <ul>
+                                    <li><a href="#">Certificate Program</a></li>
+                                    <li><a href="#">Live Sessions</a></li>
+                                    <li><a href="#">Study Materials</a></li>
+                                    <li><a href="#">Career Guide</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                </ul>
+                            </div>
+
+                            <div className="footer-links">
+                                <h4>Contact</h4>
+                                <ul>
+                                    <li><a href="mailto:hello@xploreon.in">hello@xploreon.in</a></li>
+                                    <li><a href="mailto:certificates@xploreon.in">certificates@xploreon.in</a></li>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Terms of Service</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="footer-bottom">
+                            <p>© 2025 Xploreon Learning. All rights reserved.</p>
+                            <div className="footer-india">
+                                <span>🇮🇳</span>
+                                <span>Made with ❤️ in India</span>
+                            </div>
+                        </div>
+                    </footer>
+
+                    {/* Video Player Modal */}
+                    {selectedCourse && (
+                        <div className="modal-overlay active">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h3>{selectedCourse.title}</h3>
+                                    <button className="modal-close" onClick={closeVideoPlayer}>×</button>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="video-player-container">
+                                        <div className="video-wrapper">
+                                            <iframe 
+                                                src={activeVideo?.videoUrl} 
+                                                title={activeVideo?.title}
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            ></iframe>
+                                        </div>
+                                        <div className="video-info">
+                                            <h4>{activeVideo?.title}</h4>
+                                            <p>Duration: {activeVideo?.duration} • Instructor: {selectedCourse.instructor}</p>
+                                            <button 
+                                                className="btn btn-primary" 
+                                                style={{marginTop: '1rem'}}
+                                                onClick={() => toggleVideoComplete(selectedCourse.id, activeVideo.id)}
+                                            >
+                                                {completedVideos[`${selectedCourse.id}-${activeVideo?.id}`] ? '✓ Completed' : 'Mark as Complete'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="lessons-sidebar">
+                                        <div className="lessons-header">
+                                            <h4>Course Progress</h4>
+                                            <div className="progress-bar">
+                                                <div className="progress-fill" style={{width: `${getProgress(selectedCourse)}%`}}></div>
+                                            </div>
+                                            <p style={{fontSize: '0.85rem', color: 'var(--gray-500)', marginTop: '0.5rem'}}>
+                                                {Math.round(getProgress(selectedCourse))}% Complete
+                                            </p>
+                                        </div>
+                                        <div className="lessons-list">
+                                            {selectedCourse.videos.map((video, index) => (
+                                                <div 
+                                                    key={video.id}
+                                                    className={`lesson-item ${activeVideo?.id === video.id ? 'active' : ''} ${completedVideos[`${selectedCourse.id}-${video.id}`] ? 'completed' : ''}`}
+                                                    onClick={() => setActiveVideo(video)}
+                                                >
+                                                    <div className="lesson-number">
+                                                        {completedVideos[`${selectedCourse.id}-${video.id}`] ? '✓' : index + 1}
+                                                    </div>
+                                                    <div className="lesson-info">
+                                                        <h5>{video.title}</h5>
+                                                        <span>{video.duration}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        {getProgress(selectedCourse) === 100 && (
+                                            <div style={{padding: '1rem', background: 'rgba(16, 185, 129, 0.2)', borderRadius: '12px', margin: '1rem', textAlign: 'center'}}>
+                                                <p style={{color: 'var(--space-green)', fontWeight: '600'}}>🎉 Course Completed!</p>
+                                                <p style={{fontSize: '0.85rem', color: 'var(--gray-400)', marginTop: '0.5rem'}}>
+                                                    Email us at certificates@xploreon.in to get your certificate!
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Admin Panel */}
+                    <AdminPanel 
+                        show={showAdmin} 
+                        onClose={() => setShowAdmin(false)}
+                        courses={courses}
+                        setCourses={setCourses}
+                        sessions={sessions}
+                        setSessions={setSessions}
+                    />
+                </>
+            );
+        };
+
+        // FAQ Item Component
+        const FAQItem = ({ question, answer }) => {
+            const [isOpen, setIsOpen] = useState(false);
+            
+            return (
+                <div className={`faq-item ${isOpen ? 'active' : ''}`}>
+                    <button className="faq-question" onClick={() => setIsOpen(!isOpen)}>
+                        <span>{question}</span>
+                        <span className="faq-icon">+</span>
+                    </button>
+                    <div className="faq-answer">
+                        <div className="faq-answer-content">{answer}</div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Admin Panel Component
+        const AdminPanel = ({ show, onClose, courses, setCourses, sessions, setSessions }) => {
+            const [activeTab, setActiveTab] = useState('courses');
+            const [courseForm, setCourseForm] = useState({
+                title: '', description: '', thumbnail: '', instructor: '',
+                duration: '', category: 'Fundamentals', level: 'Beginner', videos: []
+            });
+            const [videoForm, setVideoForm] = useState({ title: '', duration: '', videoUrl: '' });
+            const [sessionForm, setSessionForm] = useState({
+                title: '', instructor: '', date: '', time: '', duration: '',
+                thumbnail: '', description: '', isLive: false
+            });
+
+            const addVideo = () => {
+                if (videoForm.title && videoForm.videoUrl) {
+                    setCourseForm(prev => ({
+                        ...prev,
+                        videos: [...prev.videos, { ...videoForm, id: Date.now() }]
+                    }));
+                    setVideoForm({ title: '', duration: '', videoUrl: '' });
+                }
+            };
+
+            const removeVideo = (id) => {
+                setCourseForm(prev => ({
+                    ...prev,
+                    videos: prev.videos.filter(v => v.id !== id)
+                }));
+            };
+
+            const saveCourse = () => {
+                if (courseForm.title && courseForm.videos.length > 0) {
+                    setCourses(prev => [...prev, { ...courseForm, id: Date.now(), lessons: courseForm.videos.length }]);
+                    setCourseForm({ title: '', description: '', thumbnail: '', instructor: '', duration: '', category: 'Fundamentals', level: 'Beginner', videos: [] });
+                }
+            };
+
+            const deleteCourse = (id) => setCourses(prev => prev.filter(c => c.id !== id));
+
+            const saveSession = () => {
+                if (sessionForm.title && sessionForm.date) {
+                    setSessions(prev => [...prev, { ...sessionForm, id: Date.now() }]);
+                    setSessionForm({ title: '', instructor: '', date: '', time: '', duration: '', thumbnail: '', description: '', isLive: false });
+                }
+            };
+
+            const deleteSession = (id) => setSessions(prev => prev.filter(s => s.id !== id));
+
+            if (!show) return null;
+
+            return (
+                <div className="admin-panel active">
+                    <div className="admin-container">
+                        <div className="admin-header">
+                            <h2>🛠️ Admin Panel</h2>
+                            <button className="modal-close" onClick={onClose}>×</button>
+                        </div>
+
+                        <div className="admin-tabs">
+                            <button className={`admin-tab ${activeTab === 'courses' ? 'active' : ''}`} onClick={() => setActiveTab('courses')}>
+                                📚 Courses
+                            </button>
+                            <button className={`admin-tab ${activeTab === 'sessions' ? 'active' : ''}`} onClick={() => setActiveTab('sessions')}>
+                                🔴 Live Sessions
+                            </button>
+                        </div>
+
+                        <div className="admin-content">
+                            {activeTab === 'courses' && (
+                                <>
+                                    <div className="admin-form-section">
+                                        <h4>Add New Course</h4>
+                                        <div className="admin-form-grid">
+                                            <div className="form-group">
+                                                <label>Course Title</label>
+                                                <input type="text" value={courseForm.title} onChange={e => setCourseForm({...courseForm, title: e.target.value})} placeholder="e.g., Introduction to Rocket Science" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Instructor</label>
+                                                <input type="text" value={courseForm.instructor} onChange={e => setCourseForm({...courseForm, instructor: e.target.value})} placeholder="e.g., Dr. Priya Sharma" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Thumbnail URL</label>
+                                                <input type="text" value={courseForm.thumbnail} onChange={e => setCourseForm({...courseForm, thumbnail: e.target.value})} placeholder="https://..." />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Duration</label>
+                                                <input type="text" value={courseForm.duration} onChange={e => setCourseForm({...courseForm, duration: e.target.value})} placeholder="e.g., 8 hours" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Category</label>
+                                                <select value={courseForm.category} onChange={e => setCourseForm({...courseForm, category: e.target.value})}>
+                                                    <option>Fundamentals</option>
+                                                    <option>Engineering</option>
+                                                    <option>Communications</option>
+                                                    <option>Science</option>
+                                                    <option>History</option>
+                                                </select>
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Level</label>
+                                                <select value={courseForm.level} onChange={e => setCourseForm({...courseForm, level: e.target.value})}>
+                                                    <option>Beginner</option>
+                                                    <option>Intermediate</option>
+                                                    <option>Advanced</option>
+                                                </select>
+                                            </div>
+                                            <div className="form-group full-width">
+                                                <label>Description</label>
+                                                <textarea value={courseForm.description} onChange={e => setCourseForm({...courseForm, description: e.target.value})} placeholder="Course description..."></textarea>
+                                            </div>
+                                        </div>
+
+                                        <h4 style={{marginTop: '1.5rem'}}>Add Videos</h4>
+                                        <div className="add-video-form">
+                                            <input type="text" value={videoForm.title} onChange={e => setVideoForm({...videoForm, title: e.target.value})} placeholder="Video Title" />
+                                            <input type="text" value={videoForm.duration} onChange={e => setVideoForm({...videoForm, duration: e.target.value})} placeholder="Duration" style={{width: '100px'}} />
+                                            <input type="text" value={videoForm.videoUrl} onChange={e => setVideoForm({...videoForm, videoUrl: e.target.value})} placeholder="YouTube Embed URL" />
+                                            <button className="add-video-btn" onClick={addVideo}>Add</button>
+                                        </div>
+
+                                        {courseForm.videos.length > 0 && (
+                                            <div className="video-list">
+                                                {courseForm.videos.map((v, i) => (
+                                                    <div key={v.id} className="video-list-item">
+                                                        <span>{i+1}. {v.title} ({v.duration})</span>
+                                                        <button className="video-remove" onClick={() => removeVideo(v.id)}>Remove</button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        <button className="btn btn-primary" style={{marginTop: '1.5rem'}} onClick={saveCourse}>
+                                            💾 Save Course
+                                        </button>
+                                    </div>
+
+                                    <div className="admin-item-list">
+                                        <h4>Existing Courses ({courses.length})</h4>
+                                        {courses.map(course => (
+                                            <div key={course.id} className="admin-item">
+                                                <div className="admin-item-info">
+                                                    <img src={course.thumbnail} alt="" className="admin-item-thumb" />
+                                                    <div className="admin-item-details">
+                                                        <h5>{course.title}</h5>
+                                                        <p>{course.videos.length} videos • {course.level}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="admin-item-actions">
+                                                    <button className="admin-delete-btn" onClick={() => deleteCourse(course.id)}>Delete</button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+
+                            {activeTab === 'sessions' && (
+                                <>
+                                    <div className="admin-form-section">
+                                        <h4>Schedule Live Session</h4>
+                                        <div className="admin-form-grid">
+                                            <div className="form-group">
+                                                <label>Session Title</label>
+                                                <input type="text" value={sessionForm.title} onChange={e => setSessionForm({...sessionForm, title: e.target.value})} placeholder="e.g., Q&A: Mars Mission" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Instructor</label>
+                                                <input type="text" value={sessionForm.instructor} onChange={e => setSessionForm({...sessionForm, instructor: e.target.value})} placeholder="e.g., Dr. Priya Sharma" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Date</label>
+                                                <input type="date" value={sessionForm.date} onChange={e => setSessionForm({...sessionForm, date: e.target.value})} />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Time</label>
+                                                <input type="text" value={sessionForm.time} onChange={e => setSessionForm({...sessionForm, time: e.target.value})} placeholder="e.g., 19:00 IST" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Duration</label>
+                                                <input type="text" value={sessionForm.duration} onChange={e => setSessionForm({...sessionForm, duration: e.target.value})} placeholder="e.g., 2 hours" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label>Thumbnail URL</label>
+                                                <input type="text" value={sessionForm.thumbnail} onChange={e => setSessionForm({...sessionForm, thumbnail: e.target.value})} placeholder="https://..." />
+                                            </div>
+                                            <div className="form-group full-width">
+                                                <label>Description</label>
+                                                <textarea value={sessionForm.description} onChange={e => setSessionForm({...sessionForm, description: e.target.value})} placeholder="Session description..."></textarea>
+                                            </div>
+                                            <div className="form-group">
+                                                <label style={{display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer'}}>
+                                                    <input type="checkbox" checked={sessionForm.isLive} onChange={e => setSessionForm({...sessionForm, isLive: e.target.checked})} />
+                                                    Mark as LIVE NOW
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <button className="btn btn-primary" style={{marginTop: '1.5rem'}} onClick={saveSession}>
+                                            💾 Save Session
+                                        </button>
+                                    </div>
+
+                                    <div className="admin-item-list">
+                                        <h4>Scheduled Sessions ({sessions.length})</h4>
+                                        {sessions.map(session => (
+                                            <div key={session.id} className="admin-item">
+                                                <div className="admin-item-info">
+                                                    <img src={session.thumbnail} alt="" className="admin-item-thumb" />
+                                                    <div className="admin-item-details">
+                                                        <h5>{session.title} {session.isLive && <span style={{color: 'var(--space-red)'}}>🔴 LIVE</span>}</h5>
+                                                        <p>{session.date} at {session.time}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="admin-item-actions">
+                                                    <button className="admin-delete-btn" onClick={() => deleteSession(session.id)}>Delete</button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Render App
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
